@@ -11,7 +11,8 @@
       "error",
       {
         "singleQuote": true,
-        "endOfLine": "auto"
+        "endOfLine": "auto",
+        "printWidth": 100
       }
     ] // Avoid conflict rule between Prettier and Airbnb Eslint
   },
@@ -41,7 +42,8 @@
           "error",
           {
             "singleQuote": true,
-            "endOfLine": "auto"
+            "endOfLine": "auto",
+            "printWidth": 100
           }
         ], // Avoid conflict rule between Prettier and Airbnb Eslint
         "import/extensions": "off", // Avoid missing file extension errors, TypeScript already provides a similar feature
