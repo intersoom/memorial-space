@@ -58,7 +58,12 @@
         "unused-imports/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
         "react/no-unstable-nested-components": 0,
-        "global-require": "off"
+        "global-require": "off",
+        "react/jsx-no-constructed-context-values": 0,
+        "@typescript-eslint/no-use-before-define": 0,
+        "@typescript-eslint/no-shadow": 0,
+        "default-case": 0,
+        "consistent-return": 0
       }
     },
     // Configuration for testing
