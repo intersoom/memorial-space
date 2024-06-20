@@ -4,7 +4,7 @@
     "dev:spotlight": "spotlight-sidecar",
     "dev:next": "next dev",
     "dev": "run-p dev:*",
-    "build": "npm run next build",
+    "build": "pnpm run build",
     "start": "next start",
     "build-stats": "cross-env ANALYZE=true npm run build",
     "clean": "rimraf .next .swc out coverage",
@@ -14,7 +14,6 @@
     "test": "vitest run",
     "commit": "cz",
     "test:e2e": "playwright test",
-    "test-storybook:ci": "start-server-and-test serve-storybook http://127.0.0.1:6006 test-storybook",
     "prepare": "husky"
   },
   "dependencies": {
