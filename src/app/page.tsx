@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { AppConfig } from '@/utils/AppConfig';
 
 import { HOME_INFOS } from '../const/home';
-import { p } from 'vitest/dist/reporters-yx5ZTtEV.js';
 
 export async function generateMetadata() {
   return {
