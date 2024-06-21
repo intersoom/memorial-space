@@ -2,6 +2,10 @@ import '@/styles/global.css';
 
 import localFont from 'next/font/local';
 
+import { BaseTemplate } from '@/templates/BaseTemplate';
+import { Toaster } from '@/components/ui/toaster';
+import { headers } from 'next/headers';
+
 const pretendard = localFont({
   src: '../static/fonts/PretendardVariable.woff2',
   display: 'swap',
@@ -15,9 +19,14 @@ export const metadata = {
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {
+  const headersList = headers();
+  const headerPathname = headersList.get('x-pathname') || '';
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
-      <body className={pretendard.className}>{props.children}</body>
+      <body className={pretendard.className}>
+        <BaseTemplate headerDefault={headerPathname}>{props.children}</BaseTemplate>
+        <Toaster />
+      </body>
     </html>
   );
 }
