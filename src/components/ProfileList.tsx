@@ -54,7 +54,7 @@ const ProfileList = () => {
         className={`cursor-pointer ${page > 1 ? 'opacity-100' : 'opacity-10'}`}
       />
       <div className="flex size-full items-center justify-center">
-        <div className="flex w-[1120px] flex-wrap items-start justify-start gap-[20px]">
+        <div className="flex w-[1120px] h-[500px] flex-wrap items-start justify-start gap-[20px]">
           {data.length !== 0 ? (
             data.slice(offset, offset + limit).map((item, _) => <Profile key={_} data={item} />)
           ) : (
