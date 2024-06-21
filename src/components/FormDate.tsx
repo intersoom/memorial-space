@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -41,7 +40,6 @@ const FormDate = <T extends { value: any; onChange: any }, U extends Date>(props
             selected={props.field.value}
             onSelect={props.field.onChange}
             disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
-            defaultMonth={props.initialDate}
             initialFocus
           />
         </PopoverContent>

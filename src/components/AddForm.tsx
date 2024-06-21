@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type ControllerRenderProps, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { collection, addDoc } from 'firebase/firestore';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -18,6 +19,8 @@ import { toast } from '@/components/ui/use-toast';
 
 import { FormDate } from './FormDate';
 import { Textarea } from './ui/textarea';
+import db from '@/firebase/firestore';
+import type { Dispatch, SetStateAction } from 'react';
 
 export const FormSchema = z.object({
   username: z
@@ -50,27 +53,30 @@ export const FormSchema = z.object({
     }),
 });
 
-const AddForm = () => {
+const AddForm = (props: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: '',
-      birthdate: new Date('2001-01-01'),
-      deathdate: new Date('2024-01-01'),
+      birthdate: new Date(),
+      deathdate: new Date(),
       deathReason: '',
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: '업로드하신 내용은 다음과 같습니다.',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    try {
+      await addDoc(collection(db, 'profiles'), { ...data });
+
+      toast({
+        description: '정상적으로 제출되었습니다.',
+      });
+
+      new Promise((resolve) => setTimeout(resolve, 1000)).then(() => props.setOpen(false));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Form {...form}>

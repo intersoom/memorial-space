@@ -1,128 +1,35 @@
 'use client';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Profile from './Profile';
-
-const data = [
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-  {
-    username: '이수만',
-    birthdate: new Date('2001-01-01'),
-    deathdate: new Date('2024-01-01'),
-    deathReason: '자살',
-  },
-];
+import { collection, onSnapshot, orderBy } from 'firebase/firestore';
+import type { z } from 'zod';
+import type { FormSchema } from './AddForm';
+import db from '@/firebase/firestore';
 
 const ProfileList = () => {
+  const [data, setData] = useState<z.infer<typeof FormSchema>[]>([]);
+  // const data: z.infer<typeof FormSchema>[] = [];
+
+  useEffect(() => {
+    onSnapshot(collection(db, 'profiles'), (results) => {
+      let tempList: z.infer<typeof FormSchema>[] = [];
+      results.forEach((doc: any) => {
+        const data = doc.data();
+        const transformedData = {
+          ...data,
+          birthdate: data.birthdate.toDate(),
+          deathdate: data.deathdate.toDate(),
+        };
+
+        tempList.push(transformedData);
+      });
+      setData(tempList);
+    });
+  }, []);
+
   const [limit] = useState(12);
   const [page, setPage] = useState(1);
 
@@ -149,11 +56,11 @@ const ProfileList = () => {
       <div className="flex size-full items-center justify-center">
         <div className="flex w-[1120px] flex-wrap items-start justify-start gap-[20px]">
           {data.length !== 0 ? (
-            data
-              .slice(offset, offset + limit)
-              .map((item, _) => <Profile key={item.username} data={item} />)
+            data.slice(offset, offset + limit).map((item, _) => <Profile key={_} data={item} />)
           ) : (
-            <p className="self-center text-center">아직 등록된 정보가 없습니다.</p>
+            <div className="size-full flex justify-center items-center">
+              <p>아직 등록된 정보가 없습니다.</p>
+            </div>
           )}
         </div>
       </div>
