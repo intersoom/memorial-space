@@ -1,10 +1,10 @@
 'use client';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Profile from './Profile';
-import { collection, onSnapshot, orderBy } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import type { z } from 'zod';
 import type { FormSchema } from './AddForm';
 import db from '@/firebase/firestore';
