@@ -81,6 +81,12 @@
       "path": "@commitlint/cz-commitlint"
     }
   },
+  "lint-staged": {
+    "src/**/*.{js, jsx, ts, tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "release": {
     "branches": [
       "main"
