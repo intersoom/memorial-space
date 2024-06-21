@@ -9,7 +9,7 @@ const BaseTemplate = (props: { children: React.ReactNode; headerDefault: string 
   console.log(props.headerDefault);
   return (
     <div className="h-screen w-screen bg-black text-white antialiased">
-      <div className="mx-auto flex size-full flex-col">
+      <div className="mx-auto flex justify-between flex-col bg-black">
         <header className="min-h-fit border-b border-gray-300 p-8">
           <div className="flex items-center justify-between">
             <nav>
@@ -40,8 +40,8 @@ const BaseTemplate = (props: { children: React.ReactNode; headerDefault: string 
             </nav>
           </div>
         </header>
-        <main className="h-full">{props.children}</main>
-        <footer className="border-t border-gray-300 py-8 text-center text-sm">
+        <main className="size-full">{props.children}</main>
+        <footer className="border-t border-gray-300 py-8 text-center text-sm min-h-fit">
           결[結] : 삶을 끝맺는 공간을 지나 죽음을 끝맺다. 무연고자 사후처리시스템을 통해 도심 속
           새로운 형태의 장사시설[葬事施設]을 제안한다. [ 홍익대학교 건축도시대학 실내건축학과 허제연
           ]
