@@ -22,36 +22,46 @@ import { Textarea } from './ui/textarea';
 import db from '@/firebase/firestore';
 import type { Dispatch, SetStateAction } from 'react';
 
-export const FormSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: '이름은 최소 2글자이어야 합니다.',
-    })
-    .max(4, {
-      message: '이름은 최대 4글자이어야 합니다.',
-    }),
-  birthdate: z.coerce
-    .date({
-      required_error: '생년월일을 입력해주세요.',
-      invalid_type_error: '년-월-일의 형태로 입력해주세요',
-    })
-    .max(new Date(), { message: '현재보다 이전 날짜를 입력해주세요' }),
-  deathdate: z.coerce
-    .date({
-      required_error: '사망일자를 입력해주세요.',
-      invalid_type_error: '년-월-일의 형태로 입력해주세요',
-    })
-    .max(new Date(), { message: '현재보다 이전 날짜를 입력해주세요' }),
-  deathReason: z
-    .string()
-    .min(5, {
-      message: '사망 사유는 최소 5글자이어야 합니다.',
-    })
-    .max(30, {
-      message: '사망 사유는 최대 30글자이어야 합니다.',
-    }),
-});
+export const FormSchema = z
+  .object({
+    username: z
+      .string()
+      .min(2, {
+        message: '이름은 최소 2글자이어야 합니다.',
+      })
+      .max(4, {
+        message: '이름은 최대 4글자이어야 합니다.',
+      }),
+    birthdate: z.coerce
+      .date({
+        required_error: '생년월일을 입력해주세요.',
+        invalid_type_error: '년-월-일의 형태로 입력해주세요',
+      })
+      .max(new Date(), { message: '현재보다 이전 날짜를 입력해주세요' }),
+    deathdate: z.coerce
+      .date({
+        required_error: '사망일자를 입력해주세요.',
+        invalid_type_error: '년-월-일의 형태로 입력해주세요',
+      })
+      .max(new Date(), { message: '현재보다 이전 날짜를 입력해주세요' }),
+    deathReason: z
+      .string()
+      .min(5, {
+        message: '사망 사유는 최소 5글자이어야 합니다.',
+      })
+      .max(30, {
+        message: '사망 사유는 최대 30글자이어야 합니다.',
+      }),
+  })
+  .superRefine(({ birthdate, deathdate }, ctx) => {
+    if (birthdate >= deathdate) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: '생년월일은 사망일보다 이전이어야 합니다.',
+        path: ['birthdate'],
+      });
+    }
+  });
 
 const AddForm = (props: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -59,7 +69,7 @@ const AddForm = (props: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
     defaultValues: {
       username: '',
       birthdate: new Date(),
-      deathdate: new Date(),
+      deathdate: new Date(2001, 0),
       deathReason: '',
     },
   });
