@@ -14,8 +14,11 @@ const pretendard = localFont({
 });
 
 export const metadata = {
-  title: 'Memorial Space',
-  description: 'Graduation Project',
+  title: 'Post Processing System',
+  description: '홍익대학교 건축도시대학 실내건축학과 허제연',
+  icons: {
+    icon: '/assets/images/favicon.png',
+  },
 };
 
 export default function RootLayout(props: { children: React.ReactNode }) {
