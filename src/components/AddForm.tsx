@@ -46,8 +46,8 @@ export const FormSchema = z
       .max(new Date(), { message: '현재보다 이전 날짜를 입력해주세요' }),
     deathReason: z
       .string()
-      .min(5, {
-        message: '사망 사유는 최소 5글자이어야 합니다.',
+      .min(2, {
+        message: '사망 사유는 최소 2글자이어야 합니다.',
       })
       .max(30, {
         message: '사망 사유는 최대 30글자이어야 합니다.',
@@ -158,7 +158,11 @@ const AddForm = (props: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
               <FormItem>
                 <FormLabel>사망 사유</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="ex. 추락사, 자살 등" className="resize-none" {...field} />
+                  <Textarea
+                    placeholder="ex. 고독사, 추락사, 자살 등"
+                    className="resize-none"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
