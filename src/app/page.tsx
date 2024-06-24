@@ -11,7 +11,7 @@ export async function generateMetadata() {
 }
 
 const Home = () => (
-  <div className="p-12 size-full overflow-y-scroll">
+  <div className="p-12 size-full">
     <div className="py-8">
       <h1 className="text-3xl font-normal text-white mb-2">{AppConfig.name}</h1>
       <h2 className="text-lg text-gray-400">삶을 끝맺는 공간을 지나 죽음을 끝맺다</h2>

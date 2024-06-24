@@ -58,7 +58,7 @@ const ProfileList = () => {
           {data.length !== 0 ? (
             data.slice(offset, offset + limit).map((item, _) => <Profile key={_} data={item} />)
           ) : (
-            <div className="size-full flex justify-center items-center">
+            <div className="w-[1120px] h-[500px] flex justify-center items-center">
               <p>아직 등록된 정보가 없습니다.</p>
             </div>
           )}
