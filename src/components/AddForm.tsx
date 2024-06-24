@@ -68,8 +68,8 @@ const AddForm = (props: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: '',
-      birthdate: new Date(),
-      deathdate: new Date(2001, 0),
+      birthdate: new Date(2001, 0),
+      deathdate: new Date(),
       deathReason: '',
     },
   });

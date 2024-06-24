@@ -39,7 +39,10 @@ const FormDate = <T extends { value: any; onChange: any }, U extends Date>(props
             mode="single"
             selected={props.field.value}
             onSelect={props.field.onChange}
-            disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+            disabled={(date) =>
+              date < new Date('1900-01-01') ||
+              (props.formLabel === '생년월일' ? date > new Date() : false)
+            }
             defaultMonth={props.initialDate}
             initialFocus
           />
