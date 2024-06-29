@@ -18,22 +18,22 @@ const Home = () => (
     </div>
     <div className="mx-auto h-fit w-9/12 px-12 flex justify-center flex-col items-center gap-10 text-center">
       <Image
-        width={5906}
-        height={5906}
+        width={1000}
+        height={1000}
         src="/assets/images/1.webP"
         alt="Picture of me"
         className="w-96"
       />
       <Image
-        width={3508}
-        height={4961}
+        width={1169}
+        height={1653}
         src="/assets/images/2.webP"
         alt="Picture of me"
         className="w-96"
       />
       <Image
-        width={2268}
-        height={1135}
+        width={1134}
+        height={567.5}
         src="/assets/images/3.webP"
         alt="Picture of me"
         className="w-96"
